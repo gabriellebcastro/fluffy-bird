@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BirdScript : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class BirdScript : MonoBehaviour
     public float flapStrength;
     public LogicScript logic;
     public bool birdIsAlive = true;
+    public int birdHealth;
+    public Text healthText;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +29,12 @@ public class BirdScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        logic.gameOver();
-        birdIsAlive = false;
+        birdHealth = birdHealth - 1;
+        healthText.text = birdHealth.ToString();
+
+        if (birdHealth <= 0){
+                logic.gameOver();
+                birdIsAlive = false;
+        }
     }
 }
